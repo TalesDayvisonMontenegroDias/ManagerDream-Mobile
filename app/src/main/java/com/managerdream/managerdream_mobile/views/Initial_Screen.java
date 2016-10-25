@@ -10,13 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.managerdream.managerdream_mobile.R;
+import com.managerdream.managerdream_mobile.database.DatabaseHelper;
 
 public class Initial_Screen extends AppCompatActivity {
-
+    DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial__screen);
+        dbHelper = new DatabaseHelper(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

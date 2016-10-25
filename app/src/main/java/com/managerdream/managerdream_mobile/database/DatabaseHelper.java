@@ -20,18 +20,20 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String COST_PRICE_TABLE = "cost_price_table";
     public static final String COST_PAYMENTDAY_TABLE = "cost_paymentDay_table";
 
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
-
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, 1);
+        SQLiteDatabase db = this.getWritableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL("create table " + USER_TABLE_NAME + " (("+USER_ID_TABLE+") INTEGER PRIMARY KEY AUTOINCREMENT)," +
+                                                       " (("+USER_CREDIT_TABLE+") INTEGER)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + USER_CREDIT_TABLE);
+        onCreate(db);
     }
 }
