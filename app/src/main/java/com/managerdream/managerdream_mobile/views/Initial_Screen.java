@@ -1,8 +1,10 @@
 package com.managerdream.managerdream_mobile.views;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,9 +18,10 @@ import com.managerdream.managerdream_mobile.R;
 import com.managerdream.managerdream_mobile.database.DatabaseHelper;
 
 public class Initial_Screen extends AppCompatActivity {
-    DatabaseHelper dbHelper;
-    EditText userCredit;
-    Button btnAddData;
+    private DatabaseHelper dbHelper;
+    private EditText userCredit;
+    private Button btnAddData;
+    private Button btnViewAllData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +29,10 @@ public class Initial_Screen extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
 
         //userCredit = (EditText)findViewById(R.id.edituser_Credit);
-        //btnAddData = (Button) findViewById(R.id.button_add);
-        AddData();
+        //btnAddData = (Button)findViewById(R.id.button_add);
+        //btnViewAllData = (Button)findViewById(R.id.button_viewAllData);
+        addData();
+        viewAllData();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -40,7 +45,7 @@ public class Initial_Screen extends AppCompatActivity {
         });
     }
 
-    public void AddData(){
+    public void addData(){
         btnAddData.setOnClickListener(
                 new View.OnClickListener(){
                     @Override
@@ -53,6 +58,34 @@ public class Initial_Screen extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    public void viewAllData(){
+        btnViewAllData.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = dbHelper.getAllData();
+                        if(res.getCount() == 0){
+                            showMessage("Error","Empty DataBase");
+                            return;
+                        }
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()){
+                            buffer.append("ID : " + res.getString(0)+"\n");
+                            buffer.append("Credit: " + res.getString(1)+"\n");
+                        }
+                        showMessage("Data",buffer.toString());
+                    }
+                }
+        );
+    }
+
+    public void showMessage(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(message);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
