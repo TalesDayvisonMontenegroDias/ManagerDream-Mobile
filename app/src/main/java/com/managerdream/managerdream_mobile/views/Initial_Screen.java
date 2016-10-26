@@ -19,20 +19,26 @@ import com.managerdream.managerdream_mobile.database.DatabaseHelper;
 
 public class Initial_Screen extends AppCompatActivity {
     private DatabaseHelper dbHelper;
-    private EditText userCredit;
-    private Button btnAddData;
-    private Button btnViewAllData;
+    private EditText userCredit, userID;
+    private Button btnAddData, btnViewAllData, btnUpdate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial__screen);
         dbHelper = new DatabaseHelper(this);
 
-        //userCredit = (EditText)findViewById(R.id.edituser_Credit);
+        //userCredit = (EditText)findViewById(R.id.editUser_Credit);
+        //userID = (EditText)findViewById(R.id,editUser_ID);
+
         //btnAddData = (Button)findViewById(R.id.button_add);
         //btnViewAllData = (Button)findViewById(R.id.button_viewAllData);
+        //btnUpdate = (Button)findViewById(R.id.button_viewUpdate);
+
         addData();
         viewAllData();
+        updateData();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -50,7 +56,7 @@ public class Initial_Screen extends AppCompatActivity {
                 new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        boolean isInserted = dbHelper.insertData("userCredit.getText(),toString()");
+                        boolean isInserted = dbHelper.insertData(userCredit.getText().toString());
                         if(isInserted = true)
                             Toast.makeText(Initial_Screen.this,"Data Inserted",Toast.LENGTH_LONG).show();
                         else
@@ -80,12 +86,26 @@ public class Initial_Screen extends AppCompatActivity {
                 }
         );
     }
-
     public void showMessage(String title, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);
         builder.setMessage(message);
+    }
+
+    public void updateData(){
+        btnUpdate.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        boolean isUpdated = dbHelper.updateData(userID.getText().toString(), userCredit.getText().toString());
+                        if(isUpdated == true)
+                            Toast.makeText(Initial_Screen.this,"Data Updated",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(Initial_Screen.this,"Data not Updated", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
