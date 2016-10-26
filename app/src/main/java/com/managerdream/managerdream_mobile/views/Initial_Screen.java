@@ -20,7 +20,7 @@ import com.managerdream.managerdream_mobile.database.DatabaseHelper;
 public class Initial_Screen extends AppCompatActivity {
     private DatabaseHelper dbHelper;
     private EditText userCredit, userID;
-    private Button btnAddData, btnViewAllData, btnUpdate;
+    private Button btnAddData, btnViewAllData, btnUpdate, btnDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,13 @@ public class Initial_Screen extends AppCompatActivity {
 
         //btnAddData = (Button)findViewById(R.id.button_add);
         //btnViewAllData = (Button)findViewById(R.id.button_viewAllData);
-        //btnUpdate = (Button)findViewById(R.id.button_viewUpdate);
+        //btnUpdate = (Button)findViewById(R.id.button_update);
+        //btnDelete = (Button)findViewById(R.id.button_delete);
 
         addData();
         viewAllData();
         updateData();
+        deleteData();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -103,6 +105,21 @@ public class Initial_Screen extends AppCompatActivity {
                             Toast.makeText(Initial_Screen.this,"Data Updated",Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(Initial_Screen.this,"Data not Updated", Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+
+    public void deleteData(){
+        btnDelete.setOnClickListener(
+                new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Integer deletedRows = dbHelper.deleteData(userID.getText().toString());
+                        if(deletedRows > 0)
+                            Toast.makeText(Initial_Screen.this,"Data Deleted",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(Initial_Screen.this,"Data not Deleted",Toast.LENGTH_LONG).show();
                     }
                 }
         );

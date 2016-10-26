@@ -2,6 +2,7 @@ package com.managerdream.managerdream_mobile.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -66,5 +67,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
        db.update(USER_TABLE_NAME,contentValues,""+USER_ID_TABLE +" = ?",new String[]{ID});
        return true;
+    }
+
+    public Integer deleteData(String ID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(USER_TABLE_NAME,""+USER_ID_TABLE +" = ?",new String[]{ID});
     }
 }
