@@ -11,66 +11,59 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Home on 25/10/2016.
  */
 
-public class DatabaseHelper extends SQLiteOpenHelper{
-    private static final String DATABASE_NAME = "managerDream.db";
-    private static final int DATABASE_VERSION = 1;
-    private static final String USER_TABLE_NAME = "user_managerDream_table";
-    private static final String USER_ID_TABLE = "user_id_table";
-    private static final String USER_CREDIT_TABLE = "user_credit_table";
+public class DatabaseHelper extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "ManagerDream.db";
+    public static final String TABLE_NAME = "user_table";
+    public static final String COL_1 = "ID";
+    public static final String COL_2 = "CREDIT";
 
-    private static final String COST_TABLE_NAME = "cost_managerDream_table";
-    private static final String COST_ID_TABLE = "cost_id_table";
-    private static final String COST_DESCRIPTION_TABLE = "cost_description_table";
-    private static final String COST_PRICE_TABLE = "cost_price_table";
-    private static final String COST_PAYMENTDAY_TABLE = "cost_paymentDay_table";
 
     public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        SQLiteDatabase db = this.getWritableDatabase();
+        super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + USER_TABLE_NAME + " (("+USER_ID_TABLE+") INTEGER PRIMARY KEY AUTOINCREMENT)," +
-                                                       " (("+USER_CREDIT_TABLE+") INTEGER)");
+        db.execSQL("create table " + TABLE_NAME +" ("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT" +
+                                                    ","+COL_2+" INTEGER)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + USER_CREDIT_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         onCreate(db);
     }
 
-    public boolean insertData(String credit){
-       SQLiteDatabase db = this.getWritableDatabase();
-       ContentValues contentValues = new ContentValues();
-       contentValues.put(USER_CREDIT_TABLE, credit);
+    public boolean insertData(String credit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2,credit);
 
-       long result = db.insert(USER_TABLE_NAME,null,contentValues);
-       if(result == -1)
-          return false;
-       else
-          return true;
+        long result = db.insert(TABLE_NAME,null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
     }
 
-    public Cursor getAllData(){
+    public Cursor getAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+ USER_TABLE_NAME,null);
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
     }
 
-    public boolean updateData(String ID, String credit){
-       SQLiteDatabase db = this.getWritableDatabase();
-       ContentValues contentValues = new ContentValues();
-       contentValues.put(USER_ID_TABLE, ID);
-       contentValues.put(USER_CREDIT_TABLE,credit);
+    public boolean updateData(String id,String credit) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,id);
+        contentValues.put(COL_2,credit);
 
-       db.update(USER_TABLE_NAME,contentValues,""+USER_ID_TABLE +" = ?",new String[]{ID});
-       return true;
+        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
+        return true;
     }
 
-    public Integer deleteData(String ID){
+    public Integer deleteData (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(USER_TABLE_NAME,""+USER_ID_TABLE +" = ?",new String[]{ID});
+        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
     }
 }
