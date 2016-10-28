@@ -8,18 +8,9 @@ public class Expense {
     private int id;
     private int price;
     private String description;
-    private int paymentDay;
 
-    public Expense(int id,int price, String description, int paymentDay){
-        this.id = id;
-        this.price = price;
-        this.description = description;
-        this.paymentDay = paymentDay;
-    }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
     public void setId(int id) {
         this.id = id;
@@ -41,11 +32,4 @@ public class Expense {
         this.description = description;
     }
 
-    public int getPaymentDay() {
-        return paymentDay;
-    }
-
-    public void setPaymentDay(int paymentDay) {
-        this.paymentDay = paymentDay;
-    }
 }

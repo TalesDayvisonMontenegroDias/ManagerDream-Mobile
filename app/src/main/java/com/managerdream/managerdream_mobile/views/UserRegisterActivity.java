@@ -1,5 +1,6 @@
 package com.managerdream.managerdream_mobile.views;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -9,11 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 import com.managerdream.managerdream_mobile.R;
 import com.managerdream.managerdream_mobile.dao.UserDao;
 import com.managerdream.managerdream_mobile.entities.User;
 
-public class RegisterActivity extends AppCompatActivity {
+public class UserRegisterActivity extends AppCompatActivity {
     private UserDao userDao;
     private EditText editTextCredit,editTextId;
     private Button btnAddData,btnviewAll,btnDelete,btnviewUpdate;
@@ -22,11 +24,11 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register__screen);
+        setContentView(R.layout.activity_user_register);
         userDao = new UserDao(this);
 
-        editTextCredit = (EditText)findViewById(R.id.editText_credit);
         editTextId = (EditText)findViewById(R.id.editText_id);
+        editTextCredit = (EditText)findViewById(R.id.editText_credit);
         user = new User();
 
         btnAddData = (Button)findViewById(R.id.button_add);
@@ -34,12 +36,13 @@ public class RegisterActivity extends AppCompatActivity {
         btnviewUpdate= (Button)findViewById(R.id.button_update);
         btnDelete= (Button)findViewById(R.id.button_delete);
 
-        AddData();
-        viewAllData();
-        UpdateData();
-        DeleteData();
+        Add();
+        viewAll();
+        Update();
+        Delete();
+
     }
-    public void DeleteData() {
+    public void Delete() {
         btnDelete.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -48,19 +51,19 @@ public class RegisterActivity extends AppCompatActivity {
                             user.setId(Integer.parseInt(editTextId.getText().toString()));
                             Integer deletedRows = userDao.delete(user);
                             if (deletedRows > 0)
-                                Toast.makeText(RegisterActivity.this, "User Deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserRegisterActivity.this, "User Deleted", Toast.LENGTH_LONG).show();
                             else
-                                Toast.makeText(RegisterActivity.this, "Unregistered User", Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserRegisterActivity.this, "Unregistered User", Toast.LENGTH_LONG).show();
 
                         }
                         catch (NumberFormatException e){
-                            Toast.makeText(RegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
+                            Toast.makeText(UserRegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
                         }
                     }
                 }
         );
     }
-    public void UpdateData() {
+    public void Update() {
         btnviewUpdate.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -71,18 +74,18 @@ public class RegisterActivity extends AppCompatActivity {
 
                             boolean isUpdate = userDao.update(user);
                             if(isUpdate == true)
-                                Toast.makeText(RegisterActivity.this,"User Updated",Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserRegisterActivity.this,"User Updated",Toast.LENGTH_LONG).show();
                             else
-                                Toast.makeText(RegisterActivity.this,"User not Updated",Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserRegisterActivity.this,"User not Updated",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
-                            Toast.makeText(RegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
+                            Toast.makeText(UserRegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
                         }
                         }
                 }
         );
     }
-    public  void AddData() {
+    public  void Add() {
         btnAddData.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -93,38 +96,38 @@ public class RegisterActivity extends AppCompatActivity {
 
                             boolean isInserted = userDao.insert(user);
                             if(isInserted == true)
-                                Toast.makeText(RegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserRegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
                             else
-                                Toast.makeText(RegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
+                                Toast.makeText(UserRegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
-                            Toast.makeText(RegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
+                            Toast.makeText(UserRegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
                         }
                     }
                 }
         );
     }
 
-    public void viewAllData() {
+    public void viewAll() {
         btnviewAll.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Cursor res = userDao.search();
-                        if(res.getCount() == 0) {
-                            showMessage("Error","Nothing found");
-                            return;
-                        }
+                            Cursor res = userDao.search();
+                            if (res.getCount() == 0) {
+                                showMessage("Error", "Nothing found");
+                                return;
+                            }
 
-                        StringBuffer buffer = new StringBuffer();
-                        while (res.moveToNext()) {
-                            buffer.append("--USER--"+"\n");
-                            buffer.append("Id :"+ res.getString(0)+"\n");
-                            buffer.append("Credit :"+ res.getString(1)+"\n");
-                        }
+                            StringBuffer buffer = new StringBuffer();
+                            while (res.moveToNext()) {
+                                buffer.append("--USER--" + "\n");
+                                buffer.append("Id :" + res.getString(0) + "\n");
+                                buffer.append("Credit :" + res.getString(1) + "\n");
+                            }
 
-                        showMessage("Users",buffer.toString());
-                    }
+                            showMessage("Users", buffer.toString());
+                        }
                 }
         );
     }
@@ -135,5 +138,17 @@ public class RegisterActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    public void onButtonClick(View v) {
+        Button btnSwitch = (Button) findViewById(R.id.button_expense);
+
+        btnSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(UserRegisterActivity.this,
+                        ExpenseRegisterActivity.class));
+            }
+        });
     }
 }

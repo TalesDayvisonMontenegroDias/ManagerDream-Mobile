@@ -14,7 +14,7 @@ import com.managerdream.managerdream_mobile.entities.User;
  */
 
 public class UserDao extends SQLiteOpenHelper implements IDao<User> {
-    public static final String DATABASE_NAME = "ManagerDream.db";
+    public static final String DATABASE_NAME = "ManagerDreamUser.db";
     public static final String TABLE_NAME = "user_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "CREDIT";

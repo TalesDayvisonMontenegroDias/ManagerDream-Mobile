@@ -11,8 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Credit"
-        android:id="@+id/textView_credit"
+        android:text="ID:"
+        android:id="@+id/textView_id"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -21,9 +21,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ID"
-        android:id="@+id/textView_id"
-        android:layout_below="@+id/editText_credit"
+        android:text="Credit:"
+        android:id="@+id/textView_Credit"
+        android:layout_below="@+id/editText_id"
         android:layout_alignParentStart="true" />
 
 
@@ -47,10 +47,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Data"
+        android:text="Add User"
         android:id="@+id/button_add"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/editText_id"
+        android:layout_below="@+id/editText_credit"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -66,15 +66,26 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText_id"
-        android:layout_below="@+id/editText_credit"
-        android:layout_toEndOf="@+id/textView_id" />
+        android:id="@+id/editText_credit"
+        android:layout_below="@+id/editText_id"
+        android:layout_toEndOf="@+id/textView_Credit" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText_credit"
+        android:id="@+id/editText_id"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView_credit" />
+        android:layout_toEndOf="@+id/textView_id" />
+
+    <Button
+        android:text="Expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/button_expense"
+        android:layout_toEndOf="@+id/button_delete"
+        android:onClick="onButtonClick" />
 
 </RelativeLayout>
