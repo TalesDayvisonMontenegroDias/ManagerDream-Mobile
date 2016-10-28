@@ -139,16 +139,4 @@ public class UserRegisterActivity extends AppCompatActivity {
         builder.setMessage(Message);
         builder.show();
     }
-
-    public void onButtonClick(View v) {
-        Button btnSwitch = (Button) findViewById(R.id.button_expense);
-
-        btnSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(UserRegisterActivity.this,
-                        ExpenseRegisterActivity.class));
-            }
-        });
-    }
 }
