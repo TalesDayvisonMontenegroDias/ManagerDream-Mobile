@@ -1,31 +1,32 @@
-package com.managerdream.managerdream_mobile.database;
+package com.managerdream.managerdream_mobile.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
+import android.content.Entity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.managerdream.managerdream_mobile.entities.User;
+
 /**
- * Created by Home on 25/10/2016.
+ * Created by Home on 28/10/2016.
  */
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class UserDao extends SQLiteOpenHelper implements IDao<User> {
     public static final String DATABASE_NAME = "ManagerDream.db";
     public static final String TABLE_NAME = "user_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "CREDIT";
 
-
-    public DatabaseHelper(Context context) {
+    public UserDao(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME +" ("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT" +
-                                                    ","+COL_2+" INTEGER)");
+                ","+COL_2+" INTEGER)");
     }
 
     @Override
@@ -34,10 +35,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String credit) {
+    @Override
+    public boolean insert(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_2,credit);
+        contentValues.put(COL_2,user.getCredit());
 
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
@@ -46,24 +48,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Cursor getAllData() {
+    @Override
+    public boolean update(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,user.getId());
+        contentValues.put(COL_2,user.getCredit());
+
+        String idToString = Integer.toString(user.getId());
+        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { idToString });
+        return true;
+    }
+
+    @Override
+    public Cursor search() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
         return res;
     }
 
-    public boolean updateData(String id,String credit) {
+    @Override
+    public int delete(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,id);
-        contentValues.put(COL_2,credit);
 
-        db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
-        return true;
-    }
-
-    public Integer deleteData (String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME, "ID = ?",new String[] {id});
+        String idToString = Integer.toString(user.getId());
+        return db.delete(TABLE_NAME, "ID = ?",new String[] {idToString});
     }
 }

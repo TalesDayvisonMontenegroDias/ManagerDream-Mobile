@@ -1,0 +1,139 @@
+package com.managerdream.managerdream_mobile.views;
+
+import android.database.Cursor;
+import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.managerdream.managerdream_mobile.R;
+import com.managerdream.managerdream_mobile.dao.UserDao;
+import com.managerdream.managerdream_mobile.entities.User;
+
+public class RegisterActivity extends AppCompatActivity {
+    private UserDao userDao;
+    private EditText editTextCredit,editTextId;
+    private Button btnAddData,btnviewAll,btnDelete,btnviewUpdate;
+    private User user;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register__screen);
+        userDao = new UserDao(this);
+
+        editTextCredit = (EditText)findViewById(R.id.editText_credit);
+        editTextId = (EditText)findViewById(R.id.editText_id);
+        user = new User();
+
+        btnAddData = (Button)findViewById(R.id.button_add);
+        btnviewAll = (Button)findViewById(R.id.button_viewAll);
+        btnviewUpdate= (Button)findViewById(R.id.button_update);
+        btnDelete= (Button)findViewById(R.id.button_delete);
+
+        AddData();
+        viewAllData();
+        UpdateData();
+        DeleteData();
+    }
+    public void DeleteData() {
+        btnDelete.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            user.setId(Integer.parseInt(editTextId.getText().toString()));
+                            Integer deletedRows = userDao.delete(user);
+                            if (deletedRows > 0)
+                                Toast.makeText(RegisterActivity.this, "User Deleted", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(RegisterActivity.this, "Unregistered User", Toast.LENGTH_LONG).show();
+
+                        }
+                        catch (NumberFormatException e){
+                            Toast.makeText(RegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
+    }
+    public void UpdateData() {
+        btnviewUpdate.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            user.setCredit(Integer.parseInt(editTextCredit.getText().toString()));
+                            user.setId(Integer.parseInt(editTextId.getText().toString()));
+
+                            boolean isUpdate = userDao.update(user);
+                            if(isUpdate == true)
+                                Toast.makeText(RegisterActivity.this,"User Updated",Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(RegisterActivity.this,"User not Updated",Toast.LENGTH_LONG).show();
+                        }
+                        catch (NumberFormatException e){
+                            Toast.makeText(RegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
+                        }
+                        }
+                }
+        );
+    }
+    public  void AddData() {
+        btnAddData.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            user.setCredit(Integer.parseInt(editTextCredit.getText().toString()));
+                            user.setId(Integer.parseInt(editTextId.getText().toString()));
+
+                            boolean isInserted = userDao.insert(user);
+                            if(isInserted == true)
+                                Toast.makeText(RegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(RegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
+                        }
+                        catch (NumberFormatException e){
+                            Toast.makeText(RegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
+    }
+
+    public void viewAllData() {
+        btnviewAll.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = userDao.search();
+                        if(res.getCount() == 0) {
+                            showMessage("Error","Nothing found");
+                            return;
+                        }
+
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("--USER--"+"\n");
+                            buffer.append("Id :"+ res.getString(0)+"\n");
+                            buffer.append("Credit :"+ res.getString(1)+"\n");
+                        }
+
+                        showMessage("Users",buffer.toString());
+                    }
+                }
+        );
+    }
+
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+}
