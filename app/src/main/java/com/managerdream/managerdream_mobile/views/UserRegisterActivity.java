@@ -106,11 +106,22 @@ public class UserRegisterActivity extends AppCompatActivity {
                             user.setId(Integer.parseInt(editTextId.getText().toString()));
 
                             boolean isInserted = userDao.insert(user);
+<<<<<<< HEAD
                             if(isInserted == true) {
                                 Firebase child = firebase.child("User"+user.getId());
                                 child.setValue(user);
                                 Toast.makeText(UserRegisterActivity.this, "User Inserted", Toast.LENGTH_LONG).show();
                             }else
+=======
+                            if (isInserted == true){
+                                Toast.makeText(UserRegisterActivity.this, "User Inserted", Toast.LENGTH_LONG).show();
+                                String creditValue = Integer.toString(user.getCredit());
+                                Intent myIntent = new Intent(UserRegisterActivity.this, InicialActivity.class);
+                                myIntent.putExtra("creditValue", creditValue);
+                                startActivity(myIntent);
+                            }
+                            else
+>>>>>>> origin/master
                                 Toast.makeText(UserRegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
@@ -151,5 +162,13 @@ public class UserRegisterActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
