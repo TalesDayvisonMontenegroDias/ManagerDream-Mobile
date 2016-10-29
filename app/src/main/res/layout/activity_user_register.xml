@@ -5,17 +5,24 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".views.UserRegisterActivity">
 
-    <TextView
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ID:"
-        android:id="@+id/textView_id"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:text="Add Credit"
+        android:id="@+id/button_add"
+        android:layout_marginTop="116dp"
+        android:layout_below="@+id/editText_id" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:id="@+id/button_delete"
+        android:layout_below="@+id/button_viewAll"
+        android:layout_alignStart="@+id/button_viewAll" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,9 +30,38 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Credit:"
         android:id="@+id/textView_Credit"
-        android:layout_below="@+id/editText_id"
+        android:layout_alignBaseline="@+id/editText_credit"
+        android:layout_alignBottom="@+id/editText_credit"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ID:"
+        android:id="@+id/textView_id"
+        android:layout_alignBaseline="@+id/editText_id"
+        android:layout_alignBottom="@+id/editText_id"
+        android:layout_alignStart="@+id/button_update" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_id"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/editText_credit" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editText_credit"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/editText_id"
+        android:layout_alignStart="@+id/button_viewAll" />
 
     <Button
         android:layout_width="wrap_content"
@@ -33,48 +69,16 @@
         android:text="Update"
         android:id="@+id/button_update"
         android:layout_below="@+id/button_add"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/button_add" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View All"
         android:id="@+id/button_viewAll"
-        android:layout_above="@+id/button_update"
+        android:layout_alignBaseline="@+id/button_add"
+        android:layout_alignBottom="@+id/button_add"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add User"
-        android:id="@+id/button_add"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/editText_credit"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:id="@+id/button_delete"
-        android:layout_centerVertical="true"
-        android:layout_below="@+id/button_viewAll"
-        android:layout_alignLeft="@+id/button_viewAll"
-        android:layout_alignStart="@+id/button_viewAll" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText_credit"
-        android:layout_below="@+id/editText_id"
-        android:layout_toEndOf="@+id/textView_Credit" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText_id"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/textView_id" />
 
 </RelativeLayout>

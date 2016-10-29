@@ -19,6 +19,7 @@ public class ExpenseDao extends SQLiteOpenHelper implements IDao<Expense> {
     public static final String COL_1 = "ID";
     public static final String COL_2 = "PRICE";
     public static final String COL_3 = "DESCRIPTION";
+    public static final String COL_4 = "CATEGORY";
 
 
 
@@ -30,7 +31,8 @@ public class ExpenseDao extends SQLiteOpenHelper implements IDao<Expense> {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME +" ("+COL_1+" INTEGER PRIMARY KEY AUTOINCREMENT" +
                                                     ","+COL_2+" INTEGER" +
-                                                    ","+COL_3+" TEXT)");
+                                                    ","+COL_3+" TEXT" +
+                                                    ","+COL_4 +" TEXT)");
     }
 
     @Override
@@ -45,6 +47,9 @@ public class ExpenseDao extends SQLiteOpenHelper implements IDao<Expense> {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,expense.getPrice());
         contentValues.put(COL_3,expense.getDescription());
+        contentValues.put(COL_4,expense.getCategory());
+
+
 
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
@@ -60,6 +65,7 @@ public class ExpenseDao extends SQLiteOpenHelper implements IDao<Expense> {
         contentValues.put(COL_1,expense.getId());
         contentValues.put(COL_2,expense.getPrice());
         contentValues.put(COL_3,expense.getDescription());
+        contentValues.put(COL_4, expense.getCategory());
 
         String idToString = Integer.toString(expense.getId());
         db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { idToString });

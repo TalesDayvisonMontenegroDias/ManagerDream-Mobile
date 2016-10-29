@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.managerdream.managerdream_mobile.entities.User;
-import com.managerdream.managerdream_mobile.views.ExpenseRegisterActivity;
 
 /**
  * Created by Home on 28/10/2016.

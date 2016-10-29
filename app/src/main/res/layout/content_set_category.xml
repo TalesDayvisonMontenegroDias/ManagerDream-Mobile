@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+
+<Button
+        android:text="Comida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="34dp"
+        android:id="@+id/btnFood" />
+
+    <Button
+        android:text="Lazer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnFood"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnRecreation" />
+
+    <Button
+        android:text="Cartão"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btnRecreation"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="24dp"
+        android:id="@+id/btnCreditCard" />
+
+    <Button
+        android:text="Luz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnFood"
+        android:layout_alignStart="@+id/btnFood"
+        android:layout_marginTop="45dp"
+        android:id="@+id/btnLight" />
+
+    <Button
+        android:text="Água"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnLight"
+        android:layout_alignStart="@+id/btnRecreation"
+        android:id="@+id/btnWater" />
+
+    <Button
+        android:text="Telefone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/btnWater"
+        android:layout_alignStart="@+id/btnCreditCard"
+        android:id="@+id/btnPhone" />
+
+    <Button
+        android:text="Alguel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnRent"
+        android:layout_alignBaseline="@+id/btnEducation"
+        android:layout_alignBottom="@+id/btnEducation"
+        android:layout_alignStart="@+id/btnPhone" />
+
+    <Button
+        android:text="Educação"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnEducation"
+        android:layout_alignBaseline="@+id/btnNet"
+        android:layout_alignBottom="@+id/btnNet"
+        android:layout_alignStart="@+id/btnWater" />
+
+    <Button
+        android:text="Internet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNet"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/btnLight"
+        android:layout_alignStart="@+id/btnLight" />
+
+    <Button
+        android:text="Seguro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnNet"
+        android:layout_alignEnd="@+id/btnNet"
+        android:layout_marginTop="35dp"
+        android:id="@+id/btnSecure" />
+
+    <Button
+        android:text="Outros"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="34dp"
+        android:id="@+id/bntOther"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/btnTV" />
+
+    <Button
+        android:text="Transporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnTransport"
+        android:layout_alignBaseline="@+id/btnTV"
+        android:layout_alignBottom="@+id/btnTV"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnTV"
+        android:layout_alignBaseline="@+id/btnSecure"
+        android:layout_alignBottom="@+id/btnSecure"
+        android:layout_alignEnd="@+id/btnEducation" />
+
+</RelativeLayout>
