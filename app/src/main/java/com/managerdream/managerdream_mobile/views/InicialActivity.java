@@ -18,18 +18,17 @@ import com.managerdream.managerdream_mobile.entities.User;
 
 public class InicialActivity extends AppCompatActivity {
 
-    private TextView creditTextView = (TextView) findViewById(R.id.textView_emptyRent);
+    private TextView creditTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_inicial);
-        try{
-            creditTextView.setText(getIntent().getStringExtra("creditValue"));
-        }
-        catch(Exception e){
-            creditTextView.setText("Nenhuma renda inserida");
-        }
+
+        creditTextView =  (TextView) findViewById(R.id.textView_emptyRent);
+
+        creditTextView.setText(getIntent().getStringExtra("creditValue"));
 
     }
 

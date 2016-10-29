@@ -8,6 +8,7 @@ public class Expense {
     private int id;
     private int price;
     private String description;
+    private String category;
 
 
     public int getId() { return id; }
@@ -32,4 +33,7 @@ public class Expense {
         this.description = description;
     }
 
+    public String getCategory(){return category;}
+
+    public  void setCategory(String category){this.category = category;}
 }
