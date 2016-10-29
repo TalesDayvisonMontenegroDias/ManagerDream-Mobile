@@ -7,7 +7,7 @@
 
 
     <Button
-        android:text="Expense"
+        android:text="ADD Expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -18,7 +18,7 @@
         android:onClick="onButtonClick" />
 
     <Button
-        android:text="Rent"
+        android:text="ADD Credit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_rent"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Rent:"
+        android:text="Credit:"
         android:id="@+id/textView_rent"
         android:layout_alignParentStart="true" />
 

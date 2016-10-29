@@ -11,27 +11,10 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View All"
-        android:id="@+id/button_viewAll"
-        android:layout_above="@+id/button_update"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add User"
+        android:text="Add Credit"
         android:id="@+id/button_add"
         android:layout_marginTop="116dp"
-        android:layout_below="@+id/editText_id"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:id="@+id/button_update"
-        android:layout_below="@+id/button_add"
-        android:layout_alignEnd="@+id/button_add" />
+        android:layout_below="@+id/editText_id" />
 
     <Button
         android:layout_width="wrap_content"
@@ -40,17 +23,6 @@
         android:id="@+id/button_delete"
         android:layout_below="@+id/button_viewAll"
         android:layout_alignStart="@+id/button_viewAll" />
-
-    <Button
-        android:text="Expense"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button_expense"
-        android:onClick="onButtonClick"
-        android:layout_below="@+id/button_delete"
-        android:layout_toEndOf="@+id/button_delete"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="59dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -90,5 +62,23 @@
         android:layout_marginTop="24dp"
         android:layout_below="@+id/editText_id"
         android:layout_alignStart="@+id/button_viewAll" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update"
+        android:id="@+id/button_update"
+        android:layout_below="@+id/button_add"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/button_add" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View All"
+        android:id="@+id/button_viewAll"
+        android:layout_alignBaseline="@+id/button_add"
+        android:layout_alignBottom="@+id/button_add"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

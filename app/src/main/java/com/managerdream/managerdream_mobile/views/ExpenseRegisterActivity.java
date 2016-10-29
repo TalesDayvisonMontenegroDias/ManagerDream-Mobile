@@ -83,9 +83,9 @@ public class ExpenseRegisterActivity extends SetCategory {
                             expense.setId(Integer.parseInt(editTextId.getText().toString()));
                             Integer deletedRows = expenseDao.delete(expense);
                             if (deletedRows > 0)
-                                Toast.makeText(ExpenseRegisterActivity.this, "User Deleted", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ExpenseRegisterActivity.this, "Expense Deleted", Toast.LENGTH_LONG).show();
                             else
-                                Toast.makeText(ExpenseRegisterActivity.this, "Unregistered User", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ExpenseRegisterActivity.this, "Unregistered Expense", Toast.LENGTH_LONG).show();
 
                         }
                         catch (NumberFormatException e){
@@ -108,14 +108,14 @@ public class ExpenseRegisterActivity extends SetCategory {
 
                             boolean isUpdate = expenseDao.update(expense);
                             if(isUpdate == true){
-                                Toast.makeText(ExpenseRegisterActivity.this,"User Updated",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ExpenseRegisterActivity.this,"Expense Updated",Toast.LENGTH_LONG).show();
                                 Intent InicialIntent = new Intent(v.getContext(), InicialActivity.class);
-                                InicialIntent.putExtra("creditValue", editTextPrice.getText().toString());
+                                InicialIntent.putExtra("priceValue", editTextPrice.getText().toString());
                                 startActivity(InicialIntent);
 
                                 }
                             else
-                                Toast.makeText(ExpenseRegisterActivity.this,"User not Updated",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ExpenseRegisterActivity.this,"Expense not Updated",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
                             Toast.makeText(ExpenseRegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
@@ -137,13 +137,13 @@ public class ExpenseRegisterActivity extends SetCategory {
 
                             boolean isInserted = expenseDao.insert(expense);
                             if(isInserted == true){
-                                Toast.makeText(ExpenseRegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ExpenseRegisterActivity.this,"Expense Inserted",Toast.LENGTH_LONG).show();
                                 Intent InicialIntent = new Intent(v.getContext(), InicialActivity.class);
-                                InicialIntent.putExtra("creditValue", editTextPrice.getText().toString());
+                                InicialIntent.putExtra("priceValue", editTextPrice.getText().toString());
                                 startActivity(InicialIntent);
                             }
                             else
-                                Toast.makeText(ExpenseRegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ExpenseRegisterActivity.this,"Expense not Inserted",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
                             Toast.makeText(ExpenseRegisterActivity.this,"Invalid fields",Toast.LENGTH_LONG).show();
@@ -184,5 +184,19 @@ public class ExpenseRegisterActivity extends SetCategory {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    public  int calculateExpense(){
+        int totalExpense = 0;
+
+        Cursor res = expenseDao.search();
+        if (res.getCount() == 0) {
+            return 0;
+        }
+
+        while (res.moveToNext()) {
+            totalExpense += Integer.parseInt(res.getString(1));
+        }
+        return totalExpense;
     }
 }

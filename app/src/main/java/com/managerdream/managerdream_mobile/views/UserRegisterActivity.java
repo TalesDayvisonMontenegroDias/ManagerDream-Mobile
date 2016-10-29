@@ -158,4 +158,12 @@ public class UserRegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    public UserDao getUserDao() {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 }

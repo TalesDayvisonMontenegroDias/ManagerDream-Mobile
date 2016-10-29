@@ -2,6 +2,7 @@ package com.managerdream.managerdream_mobile.views;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,10 +17,10 @@ import com.managerdream.managerdream_mobile.dao.UserDao;
 import com.managerdream.managerdream_mobile.entities.Expense;
 import com.managerdream.managerdream_mobile.entities.User;
 
-public class InicialActivity extends AppCompatActivity {
+public class InicialActivity extends ExpenseRegisterActivity{
 
-    private TextView creditTextView;
-
+    private TextView creditTextView, expenseTextView;
+    String text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,14 @@ public class InicialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_inicial);
 
         creditTextView =  (TextView) findViewById(R.id.textView_emptyRent);
+        expenseTextView = (TextView) findViewById(R.id.textView_emptyExpenses);
 
-        creditTextView.setText(getIntent().getStringExtra("creditValue"));
+
+            creditTextView.setText(getIntent().getStringExtra("creditValue"));
+
+
+
+        expenseTextView.setText(Integer.toString(calculateExpense()));
 
     }
 
@@ -40,7 +47,6 @@ public class InicialActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(InicialActivity.this,
                         UserRegisterActivity.class));
-
             }
 
         });
@@ -54,5 +60,8 @@ public class InicialActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 }
