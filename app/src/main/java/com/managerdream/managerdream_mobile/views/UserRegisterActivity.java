@@ -95,8 +95,13 @@ public class UserRegisterActivity extends AppCompatActivity {
                             user.setId(Integer.parseInt(editTextId.getText().toString()));
 
                             boolean isInserted = userDao.insert(user);
-                            if(isInserted == true)
-                                Toast.makeText(UserRegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
+                            if (isInserted == true){
+                                Toast.makeText(UserRegisterActivity.this, "User Inserted", Toast.LENGTH_LONG).show();
+                                String creditValue = Integer.toString(user.getCredit());
+                                Intent myIntent = new Intent(UserRegisterActivity.this, InicialActivity.class);
+                                myIntent.putExtra("creditValue", creditValue);
+                                startActivity(myIntent);
+                            }
                             else
                                 Toast.makeText(UserRegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
                         }
@@ -138,5 +143,13 @@ public class UserRegisterActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

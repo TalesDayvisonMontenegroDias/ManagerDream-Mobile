@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.managerdream.managerdream_mobile.entities.User;
+import com.managerdream.managerdream_mobile.views.ExpenseRegisterActivity;
 
 /**
  * Created by Home on 28/10/2016.
@@ -22,7 +23,6 @@ public class UserDao extends SQLiteOpenHelper implements IDao<User> {
     public UserDao(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

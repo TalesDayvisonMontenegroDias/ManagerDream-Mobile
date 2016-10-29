@@ -1,5 +1,6 @@
 package com.managerdream.managerdream_mobile.views;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,16 +9,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.managerdream.managerdream_mobile.R;
+import com.managerdream.managerdream_mobile.dao.UserDao;
 import com.managerdream.managerdream_mobile.entities.Expense;
+import com.managerdream.managerdream_mobile.entities.User;
 
 public class InicialActivity extends AppCompatActivity {
+
+    private TextView creditTextView = (TextView) findViewById(R.id.textView_emptyRent);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicial);
+        try{
+            creditTextView.setText(getIntent().getStringExtra("creditValue"));
+        }
+        catch(Exception e){
+            creditTextView.setText("Nenhuma renda inserida");
+        }
+
     }
 
     public void onButtonClick(View v) {
@@ -28,7 +41,9 @@ public class InicialActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(InicialActivity.this,
                         UserRegisterActivity.class));
+
             }
+
         });
 
         Button btnSwitchToExpense = (Button) findViewById(R.id.button_expense);
