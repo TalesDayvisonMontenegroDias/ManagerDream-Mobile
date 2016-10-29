@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
 import com.managerdream.managerdream_mobile.R;
 import com.managerdream.managerdream_mobile.dao.ExpenseDao;
 import com.managerdream.managerdream_mobile.entities.Expense;
@@ -23,16 +24,20 @@ public class ExpenseRegisterActivity extends AppCompatActivity {
     private Button btnAdd,btnviewAll,btnDelete,btnviewUpdate;
     private Expense expense;
 
+    private Firebase firebase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense_register);
+        Firebase.setAndroidContext(this);
         expenseDao = new ExpenseDao(this);
 
         editTextPrice = (EditText)findViewById(R.id.editText_price);
         editTextId = (EditText)findViewById(R.id.editText_id);
         editTextDescription = (EditText)findViewById(R.id.editText_description);
 
+        firebase = new Firebase("https://managerdream-mobile.firebaseio.com/");
         expense = new Expense();
 
         btnAdd = (Button)findViewById(R.id.button_add);
@@ -53,9 +58,11 @@ public class ExpenseRegisterActivity extends AppCompatActivity {
                         try {
                             expense.setId(Integer.parseInt(editTextId.getText().toString()));
                             Integer deletedRows = expenseDao.delete(expense);
-                            if (deletedRows > 0)
+                            if (deletedRows > 0) {
+                                Firebase child = firebase.child("Expense" + expense.getId());
+                                child.setValue(null);
                                 Toast.makeText(ExpenseRegisterActivity.this, "User Deleted", Toast.LENGTH_LONG).show();
-                            else
+                            }else
                                 Toast.makeText(ExpenseRegisterActivity.this, "Unregistered User", Toast.LENGTH_LONG).show();
 
                         }
@@ -77,9 +84,11 @@ public class ExpenseRegisterActivity extends AppCompatActivity {
                             expense.setId(Integer.parseInt(editTextId.getText().toString()));
 
                             boolean isUpdate = expenseDao.update(expense);
-                            if(isUpdate == true)
-                                Toast.makeText(ExpenseRegisterActivity.this,"User Updated",Toast.LENGTH_LONG).show();
-                            else
+                            if(isUpdate == true) {
+                                Firebase child = firebase.child("Expense" + expense.getId());
+                                child.setValue(expense);
+                                Toast.makeText(ExpenseRegisterActivity.this, "User Updated", Toast.LENGTH_LONG).show();
+                            }else
                                 Toast.makeText(ExpenseRegisterActivity.this,"User not Updated",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
@@ -100,9 +109,11 @@ public class ExpenseRegisterActivity extends AppCompatActivity {
                             expense.setId(Integer.parseInt(editTextId.getText().toString()));
 
                             boolean isInserted = expenseDao.insert(expense);
-                            if(isInserted == true)
+                            if(isInserted == true){
+                                Firebase child = firebase.child("Expense" + expense.getId());
+                                child.setValue(expense);
                                 Toast.makeText(ExpenseRegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
-                            else
+                            } else
                                 Toast.makeText(ExpenseRegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "6537138840",
+    "firebase_url": "https://managerdream-mobile.firebaseio.com",
+    "project_id": "managerdream-mobile",
+    "storage_bucket": "managerdream-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6537138840:android:7339fd15e925a1e6",
+        "android_client_info": {
+          "package_name": "com.managerdream.managerdream_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6537138840-hd1ngul0bdhkbret8o29g5h08eg6cp3v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.managerdream.managerdream_mobile",
+            "certificate_hash": "430DE63D981B2DA9A10455880410B2E569653547"
+          }
+        },
+        {
+          "client_id": "6537138840-1ebr0nds9co20nr6qt9k1u4ufuhr9m3i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc_AtzQ9Y-Sak17bmu8D1epD6g21Zhu74"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6537138840-1ebr0nds9co20nr6qt9k1u4ufuhr9m3i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

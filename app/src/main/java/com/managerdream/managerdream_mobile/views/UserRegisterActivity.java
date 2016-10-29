@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.firebase.client.Firebase;
 import com.managerdream.managerdream_mobile.R;
 import com.managerdream.managerdream_mobile.dao.UserDao;
 import com.managerdream.managerdream_mobile.entities.User;
@@ -21,15 +22,21 @@ public class UserRegisterActivity extends AppCompatActivity {
     private Button btnAddData,btnviewAll,btnDelete,btnviewUpdate;
     private User user;
 
+    private Firebase firebase;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
+        Firebase.setAndroidContext(this);
         userDao = new UserDao(this);
 
         editTextId = (EditText)findViewById(R.id.editText_id);
         editTextCredit = (EditText)findViewById(R.id.editText_credit);
         user = new User();
+
+        firebase = new Firebase("https://managerdream-mobile.firebaseio.com/");
 
         btnAddData = (Button)findViewById(R.id.button_add);
         btnviewAll = (Button)findViewById(R.id.button_viewAll);
@@ -48,6 +55,8 @@ public class UserRegisterActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         try {
+                            Firebase child = firebase.child("User" + user.getId());
+                            child.setValue(null);
                             user.setId(Integer.parseInt(editTextId.getText().toString()));
                             Integer deletedRows = userDao.delete(user);
                             if (deletedRows > 0)
@@ -73,9 +82,11 @@ public class UserRegisterActivity extends AppCompatActivity {
                             user.setId(Integer.parseInt(editTextId.getText().toString()));
 
                             boolean isUpdate = userDao.update(user);
-                            if(isUpdate == true)
-                                Toast.makeText(UserRegisterActivity.this,"User Updated",Toast.LENGTH_LONG).show();
-                            else
+                            if(isUpdate == true) {
+                                Firebase child = firebase.child("User" + user.getId());
+                                child.setValue(user);
+                                Toast.makeText(UserRegisterActivity.this, "User Updated", Toast.LENGTH_LONG).show();
+                            }else
                                 Toast.makeText(UserRegisterActivity.this,"User not Updated",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
@@ -95,9 +106,11 @@ public class UserRegisterActivity extends AppCompatActivity {
                             user.setId(Integer.parseInt(editTextId.getText().toString()));
 
                             boolean isInserted = userDao.insert(user);
-                            if(isInserted == true)
-                                Toast.makeText(UserRegisterActivity.this,"User Inserted",Toast.LENGTH_LONG).show();
-                            else
+                            if(isInserted == true) {
+                                Firebase child = firebase.child("User"+user.getId());
+                                child.setValue(user);
+                                Toast.makeText(UserRegisterActivity.this, "User Inserted", Toast.LENGTH_LONG).show();
+                            }else
                                 Toast.makeText(UserRegisterActivity.this,"User not Inserted",Toast.LENGTH_LONG).show();
                         }
                         catch (NumberFormatException e){
